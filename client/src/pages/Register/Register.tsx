@@ -1,26 +1,56 @@
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import { IoEnterOutline } from "react-icons/io5";
 import { FormHeader } from "../../components/FormHeader";
-import Inputs from "./Inputs";
 import LogLink from "./LogLink";
+import { Formik, FormikProps } from "formik";
+import { Password, UserName, VerifyPassword } from "../../components/InputComponents";
+
+export interface IValues {
+	userName: string;
+	password: string;
+	verify: string;
+}
 
 function Register() {
 	const { onClose } = useDisclosure();
+
+	const submitHandler = (values: IValues) => {
+		console.log(values);
+	};
+
 	return (
 		<Modal isOpen={true} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent>
 				<FormHeader title="Hello 👋" subtitle="Welcome to the Messenger!" text="First of all, you should sign up" />
-				<ModalBody>
-					<Inputs />
-					<LogLink />
-				</ModalBody>
+				<Formik
+					initialValues={{
+						userName: "",
+						password: "",
+						verify: "",
+					}}
+					onSubmit={submitHandler}
+				>
+					{(formik: FormikProps<IValues>) => (
+						<form onSubmit={formik.handleSubmit}>
+							<ModalBody>
+								<UserName formik={formik} />
+								<Password formik={formik} />
+								<VerifyPassword formik={formik} />
+								<LogLink />
+							</ModalBody>
 
-				<ModalFooter>
-					<Button colorScheme="purple">
-						<Text mr="3px">Register</Text> <IoEnterOutline fontSize="20px" />
-					</Button>
-				</ModalFooter>
+							<ModalFooter>
+								<Button isLoading={formik.isSubmitting} type="submit" colorScheme="purple">
+									<Text mr="3px" position="relative" bottom="2px">
+										Register
+									</Text>
+									<IoEnterOutline />
+								</Button>
+							</ModalFooter>
+						</form>
+					)}
+				</Formik>
 			</ModalContent>
 		</Modal>
 	);
