@@ -14,8 +14,6 @@ function UserName({ formik }: IFormikProps) {
 		return errorMessage;
 	};
 
-	console.log("render user name");
-
 	return (
 		<FormControl isInvalid={Boolean(formik.errors.userName) && formik.touched.userName}>
 			<FormLabel htmlFor="userName">User name:</FormLabel>

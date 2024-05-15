@@ -4,6 +4,7 @@ import { FormHeader } from "../../components/FormHeader";
 import RegLink from "./RegLink";
 import { Password, UserName } from "../../components/InputComponents";
 import { Formik, FormikProps } from "formik";
+import { useNavigate } from "react-router-dom";
 
 interface IValues {
 	userName: string;
@@ -12,9 +13,12 @@ interface IValues {
 
 function Login() {
 	const { onClose } = useDisclosure();
+	const navigate = useNavigate();
 
 	function submitHandler(values: IValues) {
 		console.log(values);
+		localStorage.setItem("accessToken", "e1092jdsooijads90812.aisudh9812ejh9d8.asd908u12das");
+		navigate("/");
 	}
 
 	return (
