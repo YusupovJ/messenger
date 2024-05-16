@@ -1,4 +1,11 @@
 declare const envConfig: {
-    PORT: string;
+    port: number;
+    database: {
+        host: string;
+        name: string;
+        username: string;
+        password: string;
+        port: number;
+    };
 };
 export default envConfig;
